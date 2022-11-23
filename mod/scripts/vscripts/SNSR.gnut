@@ -1,0 +1,46 @@
+global function SNSRespawn_Init
+
+void function SNSRespawn_Init() {
+    AddCallback_OnPlayerRespawned(SNSRespawn)
+    //AddCallback_GameStateEnter( eGameState.Playing, OnGameStatePlaying )
+}
+
+void function SNSRespawn(entity player) {
+    thread SelectRespawnPoint(player)
+    //thread PhaseOnRespawn(player)
+}
+
+void function OnGameStatePlaying() {
+    foreach (player in GetPlayerArray()) {
+        thread SelectRespawnPoint(player)
+        thread PhaseOnRespawn(player)
+    }
+}
+
+void function SelectRespawnPoint(entity player) {
+    //if (!(GetGameState() == eGameState.Playing )) {return}
+    //int ang = RandomInt(360)
+    //player.SetAngles(Vector(0,ang,0))
+    //int x = RandomInt(201)
+    //int y = RandomInt(201)
+    //int z = RandomInt(201)
+    //player.SetOrigin(Vector(x-100,y-100,z+400))
+    array< vector > spawnPoints
+    array< vector > spawnAngles
+    spawnPoints.append( Vector(-1007.95.95,0,7) )
+    spawnPoints.append( Vector(1007.95,0,7) )
+    spawnPoints.append( Vector(0,-1007.95,7) )
+    spawnPoints.append( Vector(0,1007.95,7) )
+    spawnAngles.append( Vector(0,0,0) )
+    spawnAngles.append( Vector(0,180,0) )
+    spawnAngles.append( Vector(0,90,0) )
+    spawnAngles.append( Vector(0,-90,0) )
+    int a = RandomInt(4)
+    player.SetOrigin(spawnPoints[a])
+    player.SetAngles(spawnAngles[a])
+}
+
+void function PhaseOnRespawn(entity player) {
+    if (!(GetGameState() == eGameState.Playing )) {return}
+    PhaseShift( player, 0 , 3 )
+}

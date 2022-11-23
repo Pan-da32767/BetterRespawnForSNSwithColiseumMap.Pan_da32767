@@ -1,0 +1,18 @@
+{
+	"Name" : "BetterRespawnForSNSwithColiseumMap.Pan_da32767",
+	"Description" : "A simple Titanfall2 mod that extend the spawn points for map coliseum.",
+	"Version": "0.0.1",
+	"LoadPriority": 1,
+
+	"ConVars": [
+	],
+	"Scripts": [
+		{
+			"Path": "SNSR.gnut",
+			"RunOn": "SERVER && MP",
+			"ServerCallback": {
+				"After": "SNSRespawn_Init"
+			}
+		}
+	]
+}
